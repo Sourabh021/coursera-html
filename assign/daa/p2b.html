@@ -1,0 +1,52 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>p2b</title>
+</head>
+<body>
+    <div style="text-align: right;"><a href="main.html">home</a></div>
+    <div>#include &lt;stdio.h><br>
+void BFS (int a[10][10],int n,int src,int s[10])<br>
+{<br>
+ int f=0,r=-1,q[20],i,v;<br>
+ s[src] = 1;<br>
+ q[++r] = src;<br>
+ while (f <= r)<br>
+ {<br>
+ v = q[f++];<br>
+ for (i=1;i<=n;i++)<br>
+ if (s[i]==0 && a[v][i])<br>
+ {<br>
+ q[++r] = i;<br>
+ s[i] = 1;<br>
+ }<br>
+ }<br>
+}<br>
+int main ()<br>
+{<br>
+ int a[10][10],n,i,j,s[20],src,dest;<br>
+ printf ("Enter no. of Nodes in Graph\n");<br>
+ scanf ("%d",&n);<br>
+ printf ("Enter the connections of Graph in Adjacency Matrix\n");<br>
+ for (i=1;i<=n;i++)<br>
+ for (j=1;j<=n;j++)<br>
+ scanf ("%d",&a[i][j]);<br>
+ printf ("Enter the Source Node\n");<br>
+ scanf ("%d",&src);<br>
+ printf ("Enter the Destination Node\n");<br>
+ scanf ("%d",&dest);<br>
+ printf ("Source Node = %d\n",src);<br>
+ printf ("Destination Node = %d\n",dest);<br>
+ for(i=1;i<=n;i++)<br>
+ s[i]=0;<br>
+ BFS (a,n,src,s);<br>
+ if (s[src]==1 && s[dest]==1)<br>
+ printf ("Destination is Reachable from %d to %d\n",src,dest);<br>
+ else<br>
+ printf ("Destination not Reachable\n");<br>
+ return 0;<br>
+}
+    </div>
+</body>
+</html>

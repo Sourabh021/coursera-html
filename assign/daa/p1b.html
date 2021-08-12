@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>p1b</title>
+</head>
+<body>
+	<div style="text-align: right;"><a href="main.html">home</a></div>
+	<div>#include &lt;stdio.h><br>
+struct stock<br>
+{<br>
+ int left;<br>
+ int right;<br>
+ int sum;<br>
+};<br>
+struct stock crosssubsum (int *a,int low,int mid,int high)<br>
+{<br>
+ int leftsum=0,rightsum=0,sum=0,i,j,maxleft=0,maxright=0;<br>
+ struct stock res;<br>
+ for (i=mid;i>=low;i--)<br>
+ {<br>
+ sum = sum + a[i];<br>
+ if (sum > leftsum)<br>
+ {<br>
+ leftsum = sum;<br>
+ maxleft = i;<br>
+ }<br>
+ }<br>
+ sum = 0;<br>
+ for (j=mid+1;j<=high;j++)<br>
+ {<br>
+ sum = sum + a[j];<br>
+ if (sum > rightsum)<br>
+ {<br>
+ rightsum = sum;<br>
+ maxright = j;<br>
+ }<br>
+ }<br>
+ res.left = maxleft;<br>
+ res.right = maxright;<br>
+ res.sum = leftsum+rightsum;<br>
+ return res;<br>
+}<br>
+struct stock maxsubsum (int *a,int low,int high)<br>
+{<br>
+ int mid;<br>
+ struct stock leftsum,rightsum,crosssum,res;<br>
+ if (low == high)<br>
+ {<br>
+ res.left = low;<br>
+ res.right = high;<br>
+ res.sum = a[low];<br>
+ return res;<br>
+ }<br>
+ mid = (low+high)/2;<br>
+ leftsum = maxsubsum( a,low,mid);<br>
+ rightsum = maxsubsum (a,mid+1,high);<br>
+ crosssum = crosssubsum (a,low,mid,high);<br>
+ if (leftsum.sum >= rightsum.sum && leftsum.sum >=crosssum.sum)<br>
+ return leftsum;<br>
+ else if (rightsum.sum >= leftsum.sum && rightsum.sum >=crosssum.sum)<br>
+ return rightsum;<br>
+ else<br>
+ return crosssum;<br>
+}<br>
+int main ()<br>
+{<br>
+ int n,a[10],i,low,high;<br>
+ struct stock maxsum;<br>
+ printf ("Enter the no. of Days in Stock Market\n");<br>
+ scanf ("%d",&n);<br>
+ printf ("Enter the Gain or Loss in Stock Market per Day\n");<br>
+ for (i=0;i&lt;n;i++)<br>
+ scanf ("%d",&a[i]);<br>
+ low =0; high = n-1;<br>
+ maxsum = maxsubsum (a,low,high);<br>
+ printf ("Maximum Profit in Stock Market lies from Day %d to Day
+%d\n",maxsum.left+1,maxsum.right+1);<br>
+ printf ("Maximum Profit in Stock Market = %d\n",maxsum.sum);<br>
+ return 0;<br>
+} 
+    </div>
+</body>
+</html>

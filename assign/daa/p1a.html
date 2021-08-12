@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>p1a</title>
+</head>
+<body>
+	<div style="text-align: right;"><a href="main.html">home</a></div>
+	<div>#include &lt;stdio.h&gt;<br>
+int crosssubsum (int a[],int low,int mid,int high)<br>
+{<br>
+ int leftsum=0,rightsum=0,sum=0,i;<br>
+ for (i=mid;i>=low;i--)<br>
+ {<br>
+ sum = sum + a[i];<br>
+ if (sum > leftsum)<br>
+ leftsum = sum;<br>
+ }<br>
+ sum = 0;<br>
+ for (i=mid+1;i<=high;i++)<br>
+ {<br>
+ sum = sum + a[i];<br>
+ if (sum > rightsum)<br>
+ rightsum = sum;<br>
+ }<br>
+ return leftsum+rightsum;<br>
+}<br>
+int maxsubsum (int a[],int low,int high)<br>
+{<br>
+ int mid,leftsum,rightsum,crosssum;<br>
+ if (low == high)<br>
+ return a[low];<br>
+ mid = (low+high)/2;<br>
+ leftsum = maxsubsum( a,low,mid);<br>
+ rightsum = maxsubsum (a,mid+1,high);<br>
+ crosssum = crosssubsum (a,low,mid,high);<br>
+ if (leftsum >= rightsum && leftsum >=crosssum)<br>
+ return leftsum;<br>
+ else if (rightsum >= leftsum && rightsum >=crosssum)<br>
+ return rightsum;<br>
+ else<br>
+ return crosssum;<br>
+}<br>
+int main ()<br>
+{<br>
+ int n,a[10],i,low,high,maxsum;<br>
+ printf ("Enter the no. of Elements\n");<br>
+ scanf ("%d",&n);<br>
+ printf ("Enter an Array of +ve and -ve No.\n");<br>
+ for (i=0;i &lt; n;i++)<br>
+ low = 0;<br>
+ high = n-1;<br>
+ maxsum = maxsubsum (a,low,high);<br>
+ printf ("Maximum Contiguous Sum = %d\n",maxsum);<br>
+ return 0;<br>
+}
+	</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>p4a</title>
+</head>
+<body>
+    <div style="text-align: right;"><a href="main.html">home</a></div>
+	<div>#include &lt;stdio.h><br>
+#include &lt;string.h><br>
+int MAX (int a,int b)<br>
+{<br>
+ return (a>b)?a:b;<br>
+}<br>
+void LCS (char X[],char Y[],int m,int n)<br>
+{<br>
+ int i,j,L[m+1][n+1];<br>
+ for (i=0;i<=m;i++)<br>
+ {<br>
+ for (j=0;j<=n;j++)<br>
+ {<br>
+ if (i == 0 || j == 0)<br>
+ L[i][j] = 0;<br>
+ else if (X[i-1] == Y[j-1])<br>
+ L[i][j] = L[i-1][j-1] + 1;<br>
+ else<br>
+ L[i][j] = MAX(L[i-1][j], L[i][j-1]);<br>
+ }<br>
+ }<br>
+ printf ("The Length of Longest Common Subsequence is %d\n",L[m][n]);<br>
+ int index = L[m][n];<br>
+ char lcs[index+1];<br>
+ lcs[index] = '\0';<br>
+ i = m;<br>
+ j = n;<br>
+ while (i > 0 && j > 0)<br>
+ {<br>
+ if (X[i-1] == Y[j-1])<br>
+ {<br>
+ lcs[index-1] = X[i-1];<br>
+ i--;<br>
+ j--;<br>
+ index--;<br>
+ }<br>
+ else if (L[i-1][j] > L[i][j-1])<br>
+ i--;<br>
+ else<br>
+ j--;<br>
+ }<br>
+ printf ("The Longest Common Subsequence of %s and %s is %s\n",X,Y,lcs);<br>
+}<br>
+int main ()<br>
+{<br>
+ char X[20],Y[20];<br>
+ int m,n;<br>
+ printf ("Enter 1st Sequence\n");<br>
+ gets (X);<br>
+ printf ("Enter 2nd Sequence\n");<br>
+ gets (Y);<br>
+ m = strlen (X);<br>
+ n = strlen (Y);<br>
+ LCS (X,Y,m,n);<br>
+ return 0;<br>
+}
+    </div>
+</body>
+</html>

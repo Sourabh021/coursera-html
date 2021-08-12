@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>p6a</title>
+</head>
+<body>
+    <div style="text-align: right;"><a href="main.html">home</a></div>
+	<div>#include &lt;stdio.h><br>
+int BellmanFord (int G[20][20] ,int n,int E,int edge[20][2])<br>
+{<br>
+ int i,u,v,k,distance[20],parent[20],S,flag=1;<br>
+ for (i=0;i&lt;n;i++)<br>
+ {<br>
+ distance[i] = 1000;<br>
+ parent[i] = -1;<br>
+ }<br>
+ printf ("Enter Source\n");<br>
+ scanf ("%d",&S);<br>
+ printf ("Shortest Path from Source %d:\n",S);<br>
+ distance[S-1] = 0;<br>
+ for (i=0;i&lt;n-1;i++)<br>
+ {<br>
+ for (k=0;k&lt;E;k++)<br>
+ {<br>
+ u = edge[k][0];<br>
+ v = edge[k][1];<br>
+ if (distance[u]+G[u][v] < distance[v])<br>
+ {<br>
+ distance[v] = distance[u] + G[u][v];<br>
+ parent[v] = u;<br>
+ }<br>
+ }<br>
+ }<br>
+ for(k=0;k&lt;E;k++)<br>
+ {<br>
+ u = edge[k][0];<br>
+ v = edge[k][1];<br>
+ if (distance[u]+G[u][v] < distance[v])<br>
+ flag = 0;<br>
+ }<br>
+ if (flag)<br>
+ for (i=0;i&lt;n;i++)<br>
+ printf ("Vertex %d -> Cost = %d Parent = %d\n",i+1,distance[i],parent[i]+1);<br>
+ return flag;<br>
+}<br>
+int main ()<br>
+{<br>
+ int n,edge[20][2],G[20][20],i,j,k=0;<br>
+ printf ("Enter no. of Nodes in Graph\n");<br>
+ scanf ("%d",&n);<br>
+ printf ("Enter Cost Adjacency Matrix of Graph\n");<br>
+ for (i=0;i&lt;n;i++)<br>
+ for (j=0;j&lt;n;j++)<br>
+ {<br>
+ scanf ("%d",&G[i][j]);<br>
+ if (G[i][j] != 0)<br>
+ {<br>
+ edge[k][0] = i;<br>
+ edge[k++][1] = j;<br>
+ }<br>
+ }<br>
+ if (BellmanFord(G,n,k,edge))<br>
+ printf ("No negative weight cycle\n");<br>
+ else<br>
+ printf ("Negative weight cycle exists\n");<br>
+ return 0;<br>
+}
+    </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>p7a</title>
+</head>
+<body>
+    <div style="text-align: right;"><a href="main.html">home</a></div>
+	<div>
+		#include &lt;stdio.h&gt;<br>
+int a[100],x[100];<br>
+int d;<br>
+void sum_of_subset (int weightsofar,int k,int remwt)<br>
+{<br>
+ int i;<br>
+ x[k] = 1;<br>
+ if (weightsofar + a[k] == d)<br>
+ {<br>
+ printf ("Subset ===>> {");<br>
+ for (i=1;i<=k;i++)<br>
+ if (x[i] == 1)<br>
+ printf ("%d,",a[i]);<br>
+ printf ("}\n");<br>
+ }<br>
+ else if (weightsofar + a[k] + a[k+1] <= d)<br>
+ sum_of_subset (weightsofar+a[k],k+1,remwt-a[k]);<br>
+ if ((weightsofar+remwt-a[k] >= d) && (weightsofar+a[k+1] <= d))<br>
+ {<br>
+ x[k] = 0;<br>
+ sum_of_subset (weightsofar,k+1,remwt-a[k]);<br>
+ }<br>
+}<br>
+int main ()<br>
+{<br>
+ int n,i,sum=0;<br>
+ printf ("Enter no. of Elements\n");<br>
+ scanf ("%d",&n);<br>
+ printf ("Enter the Elements\n");<br>
+ for (i=1;i<=n;i++)<br>
+ {<br>
+ scanf ("%d",&a[i]);<br>
+ sum = sum + a[i];<br>
+ }<br>
+ printf ("Enter the Required Sum to be Computed\n");<br>
+ scanf ("%d",&d);<br>
+ if (sum < d)<br>
+ printf ("No Solution Exists\n");<br>
+ else<br>
+ {<br>
+ printf("The Solution is\n");<br>
+ sum_of_subset (0,1,sum);<br>
+ }<br>
+ return 0;<br>
+}
+	</div>
+</body>
+</html>

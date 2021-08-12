@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>p5a</title>
+</head>
+<body>
+    <div style="text-align: right;"><a href="main.html">home</a></div>
+	<div>#include &lt;stdio.h><br>
+void kruskal (int cost[20][20],int n)<br>
+{<br>
+ int parent[20]={0},min,mincost=0,ne=1;<br>
+ int a,b,i,j,u,v;<br>
+ while (ne < n)<br>
+ {<br>
+ for (i=1,min=999;i<=n;i++)<br>
+ for (j=1;j<=n;j++)<br>
+ if (cost[i][j] < min)<br>
+ {<br>
+ min = cost[i][j];<br>
+ a = u = i;<br>
+ b = v = j;<br>
+ }<br>
+ while (parent[u])<br>
+ u = parent[u];<br>
+ while (parent[v])<br>
+ v = parent[v];<br>
+ if (u != v)<br>
+ {<br>
+ printf ("%d edge (%d,%d) = %d\n",ne++,a,b,min);<br>
+ mincost = mincost + min;<br>
+ parent[v] = u;<br>
+ }<br>
+ cost[a][b] = cost[b][a] = 999;<br>
+ }<br>
+ printf ("The Minimum Cost = %d\n",mincost);<br>
+}<br>
+int main()<br>
+{<br>
+ int n,i,j,cost[20][20];<br>
+ printf ("Enter the no. of Nodes\n");<br>
+ scanf ("%d",&n);<br>
+ printf ("Enter the Cost Adjacency Matrix\n");<br>
+ for (i=1;i<=n;i++)<br>
+ for (j=1;j<=n;j++)<br>
+ {<br>
+ scanf ("%d",&cost[i][j]);<br>
+ if (cost[i][j] == 0)<br>
+ cost[i][j] = 999;<br>
+ }<br>
+ printf ("The edges of Minimum Cost Spanning Tree are\n");<br>
+ kruskal (cost,n);<br>
+ return 0;<br>
+}
+    </div>
+</body>
+</html>

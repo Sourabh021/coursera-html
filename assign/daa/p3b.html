@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>p3b</title>
+</head>
+<body>
+	<div style="text-align: right;"><a href="main.html">home</a></div>
+	<div>#include &lt;stdio.h><br>
+#include &lt;string.h><br>
+#define MAX 126<br>
+int t[MAX];<br>
+int max (int a, int b)<br>
+{<br>
+ return (a > b)? a: b;<br>
+}<br>
+void shifttable (char p[])<br>
+{<br>
+ int i,j,m;<br>
+ m = strlen(p);<br>
+ for (i=0;i&lt;MAX;i++)<br>
+ t[i] = m;<br>
+ for (j=0;j&lt;m-1;j++)<br>
+ t[p[j]] = m-1-j;<br>
+}<br>
+int boyermoore (char src[],char p[])<br>
+{<br>
+ int i,k,m,n;<br>
+ n = strlen(src);<br>
+ m = strlen(p);<br>
+ i = m-1;<br>
+ while (i&lt;n)<br>
+ {<br>
+ k = 0;<br>
+ while ((k&lt;m) && (p[m-1-k] == src[i-k]))<br>
+ k++;<br>
+ if (k == m)<br>
+ return (i-m+1);<br>
+ else<br>
+ i = i + max(t[src[i]]-k,1);<br>
+ }<br>
+ return -1;<br>
+}<br>
+int main ()<br>
+{<br>
+ char src[100],p[100];<br>
+ int i,pos,count=0;<br>
+ char keywords [4][10] = {"free","money","help","price"};<br>
+ printf ("Enter Mail Message\n");<br>
+ gets (src);<br>
+ for (i=0;i<4;i++)<br>
+ {<br>
+ strcpy (p,keywords[i]);<br>
+ shifttable (p);<br>
+ pos = boyermoore (src,p);<br>
+ if (pos >= 0)<br>
+ count++;<br>
+ }<br>
+ if (count > 3)<br>
+ printf ("SPAM!\n");<br>
+ else<br>
+ printf ("NOT SPAM\n");<br>
+ return 0;<br>
+}
+    </div>
+</body>
+</html>

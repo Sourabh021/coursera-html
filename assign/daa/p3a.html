@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>p3a</title>
+</head>
+<body>
+    <div style="text-align: right;"><a href="main.html">home</a></div>
+	<div>#include &lt;stdio.h><br>
+#include &lt;string.h><br>
+#define MAX 126<br>
+int t[MAX];<br>
+int max (int a, int b)<br>
+{<br>
+ return (a > b)? a: b;<br>
+}<br>
+void shifttable (char p[])<br>
+{<br>
+ int i,j,m;<br>
+ m = strlen(p);<br>
+ for (i=0;i&lt;MAX;i++)<br>
+ t[i] = m;<br>
+ for (j=0;j&lt;m-1;j++)<br>
+ t[p[j]] = m-1-j;<br>
+}<br>
+int boyermoore (char src[],char p[])<br>
+{<br>
+ int i,k,m,n;<br>
+ n = strlen(src);<br>
+ m = strlen(p);<br>
+ printf ("Length of Text = %d\n",n);<br>
+ printf ("Length of Pattern = %d\n",m);<br>
+ i = m-1;<br>
+ while (i&lt;n)<br>
+ {<br>
+ k = 0;<br>
+ while ((k&lt;m) && (p[m-1-k] == src[i-k]))<br>
+ k++;<br>
+ if (k == m)<br>
+ return (i-m+1);<br>
+ else<br>
+ i = i + max(t[src[i]]-k,1);<br>
+ }<br>
+ return -1;<br>
+}<br>
+int main ()<br>
+{<br>
+ char src[100],p[100];<br>
+ int pos;<br>
+ printf ("Enter the Text in which Pattern is to be Searched\n");<br>
+ gets (src);<br>
+ printf ("Enter the Pattern to be Searched\n");<br>
+ gets (p);<br>
+ shifttable (p);<br>
+ pos = boyermoore (src,p);<br>
+ if (pos >= 0)<br>
+ printf ("Pattern was found starting from position %d\n",pos+1);<br>
+ else<br>
+ printf ("Pattern was not found\n");<br>
+ return 0;<br>
+}
+    </div>
+</body>
+</html>

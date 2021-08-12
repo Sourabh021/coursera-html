@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>p7b</title>
+</head>
+<body>
+	<div style="text-align: right;"><a href="main.html">home</a></div>
+	<div>#include &lt;stdio.h><br>
+struct faculty<br>
+{<br>
+ char name[20];<br>
+ int exp;<br>
+};<br>
+int x[100];<br>
+int d=9;<br>
+struct faculty a[7]={{"________",},{"Mr. John",1},{"Mr. Jacob",2},{"Mr. Dave",3},
+ {"Mrs. Emily",6},{"Mrs. Ava",7},{"Ms. Jessica",8}};
+void sum_of_subset (int weightsofar,int k,int remwt)<br>
+{<br>
+ int i=0;<br>
+ x[k] = 1;<br>
+ if (weightsofar + a[k].exp == d)<br>
+ {<br>
+ printf ("\nTeam of:\n{\n");<br>
+ for (i=0;i&lt;k;i++)<br>
+ {<br>
+ if (x[i+1] == 1)<br>
+ printf ("\t%s -> %dyrs of Experience\n",a[i+1].name,a[i+1].exp);<br>
+ }<br>
+ printf ("}\n");<br>
+ }<br>
+ else if (weightsofar+a[k].exp+a[k+1].exp <= d)<br>
+ sum_of_subset (weightsofar+a[k].exp,k+1,remwt-a[k].exp);<br>
+ if ((weightsofar+remwt-a[k].exp >= d) && (weightsofar+a[k+1].exp <= d))<br>
+ {<br>
+ x[k] = 0;<br>
+ sum_of_subset (weightsofar,k+1,remwt-a[k].exp);<br>
+ }<br>
+}<br>
+int main ()<br>
+{<br>
+ int i,sum=0;<br>
+ printf ("Sl.No.\t\tFaculty\t\t\tTeaching Experience\n");<br>
+ for (i=1;i<=6;i++)<br>
+ {<br>
+ printf ("%d\t\t\t%s\t\t%dyrs\n",i,a[i].name,a[i].exp);<br>
+ sum = sum + a[i].exp;<br>
+ }<br>
+ printf ("\nRequired Years of Experience: %dyrs\n",d);<br>
+ printf ("\nTeams with %d Years of Experience:\n",d);<br>
+ if (sum < d)<br>
+ printf ("No Team Exists\n");<br>
+ else<br>
+ sum_of_subset (0,1,sum);<br>
+return 0;<br>
+}
+    </div>
+</body>
+</html>
